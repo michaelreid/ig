@@ -1,15 +1,9 @@
-{#{% extends "base.html" %}#}
+{% extends "base.html" %}
 
-<!DOCTYPE html>
-<html>
-  <head>
-  </head>
-  
-  <body>
-      
+{% block content %}
       {% for pic in results %}
       <img src="{{ pic }}" alt="#" width="100px" height="100px"/>
       {% endfor %}
+{% endblock %}
 
-  </body>
-</html>
+
