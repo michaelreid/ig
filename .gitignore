@@ -1,0 +1,7 @@
+env/*.py~
+env/*.pyc
+*.py~
+*.pyc
+env/
+ig/templates/*.html~
+git status
