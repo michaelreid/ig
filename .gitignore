@@ -6,3 +6,5 @@ env/*.pyc
 ig/templates/*.html~
 ig/templates/#*
 ig/templates/.#*
+ig/access_token
+ig/.emacs.desktop
