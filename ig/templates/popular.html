@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-      {% for pic in popular_urls %}
-      <img src="{{ pic }}" alt="#" width="200px" height="200px"/>
+{% for pic in media %}
+       <img src="{{ pic[loop.index0] }}" alt="#" />
+       <p>{{ pic[loop.index] }}</p>
       {% endfor %}
 {% endblock %}
 

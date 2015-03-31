@@ -1,6 +1,9 @@
 ######################################
 # INITAL SETUP OF FLASK & INSTAGRAMAPI
 #
+# import python modules
+import urllib2, json
+
 # setup flask to render templates
 from flask import render_template
 #
@@ -23,37 +26,40 @@ api = InstagramAPI(client_id=CLIENT_ID, client_secret=CLIENT_SECRET, access_toke
 #
 #
 #
+def popular_media():
+    # the request to send to instagram api for popular media
+    request_insta = urllib2.Request('https://api.instagram.com/v1/media/popular?access_token=' + ACCESS_TOKEN )
 
+    # open the response that instagram sends
+    insta_response = urllib2.urlopen(request_insta)
 
-def popular_media(number):
-    return api.media_popular(count=number)
-    
+    # read the response and convert to dictionary
+    response = json.loads(insta_response.read())
+    url_obj = response['data'][0]['images']['low_resolution']['url']
+    url_str = str(url_obj)
+    print url_str
+    likes = response['data'][2]['likes']['count']
+    print likes
+    # webbrowser.open(url)
+    return (url_str, likes)
 
-def media_likes():
-    media = popular_media(3) # get 3 most popular media
-    print media
-    # likes = api.media_likes()
-    for item in media:
-        print item.likes
+def list_of_popular(number):
+    media = []
+    for i in range(number):
+        media.append(popular_media())
+    return media
 
-media_likes()
 
 ######################################
 #  DISPLAY THE MOST POPULAR MEDIA
-#    
-@app.route("/")
-def display_media():
-    media = popular_media(3)
-    popular_urls = []
-    for item in media:
-        url = item.images['low_resolution'].url
-        popular_urls.append(url)
-    return render_template('popular.html', popular_urls=popular_urls)
-
-
-
-
-
+#
+@app.route("/<int:number>")
+def display_media(number):
+    number = int(number)
+    media = list_of_popular(number)
+    print media 
+    return render_template('popular.html', media=media)
+    
 
 
 #######################################
