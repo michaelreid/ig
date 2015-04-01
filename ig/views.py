@@ -16,9 +16,8 @@ from instagram.client import InstagramAPI
 CLIENT_ID = os.environ.get('CLIENT_ID')
 CLIENT_SECRET = os.environ.get('CLIENT_SECRET')
 REDIRECT_URI = 'http://localhost:8080/callback'
-token = open('ig/access_token', 'r')
-ACCESS_TOKEN = token.read()
-api = InstagramAPI(client_id=CLIENT_ID, client_secret=CLIENT_SECRET, access_token=ACCESS_TOKEN)
+ACCESS_TOKEN = os.environ.get('ACCESS_TOKEN')
+# api = InstagramAPI(client_id=CLIENT_ID, client_secret=CLIENT_SECRET, access_token=ACCESS_TOKEN)
 
 
 
